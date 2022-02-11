@@ -18,6 +18,12 @@ const Navbar = ({ title, icon }) => {
 
   const authLinks = (
     <Fragment>
+      <li>
+      <Link to='/'>Home</Link>
+      </li>
+      <li className='mr-6'>
+      <Link to='/about'>About</Link>
+      </li>
       <li>Hello {user && user.name}</li>
       <li>
         <a onClick={onLogout} href="#!">
@@ -39,7 +45,7 @@ const Navbar = ({ title, icon }) => {
   );
 
   return (
-  <div className='navbar bg-primary'>
+  <div className='navbar bg-primary fadeIn first'>
     <h1>
       <i className={icon}/> { title }
     </h1>

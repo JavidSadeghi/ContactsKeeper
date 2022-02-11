@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -10,17 +11,16 @@ const Register = (props) => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if(isAuthenticated) {
+    if (isAuthenticated) {
       props.history.push('/');
     }
 
-    if(error === 'User already exists') {
+    if (error === 'User already exists') {
       setAlert(error, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
-  
 
   const [user, setUser] = useState({
     name: '',
@@ -45,53 +45,64 @@ const Register = (props) => {
       register({
         name,
         email,
-        password
+        password,
       });
     }
   };
 
   return (
-    <div className='form-container'>
-      <h1>
-        Account <span className='text-primary'>Register</span>
-      </h1>
-      <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='name'>Name</label>
-          <input type='text' name='name' value={name} onChange={onChange} required />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email Address</label>
-          <input type='email' name='email' value={email} onChange={onChange} required />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+    <div className='wrapper fadeInDown'>
+      <div id='formContent'>
+        <h1 className='fadeIn first'>
+          Account <span className='text-primary'>Register</span>
+        </h1>
+        <form onSubmit={onSubmit}>
+          <input
+            type='text'
+            name='name'
+            value={name}
+            className='fadeIn second'
+            placeholder='Name'
+            onChange={onChange}
+            required
+          />
+          <input
+            type='email'
+            name='email'
+            value={email}
+            className='fadeIn second'
+            placeholder='Email Address'
+            onChange={onChange}
+            required
+          />
           <input
             type='password'
             name='password'
             value={password}
+            className='fadeIn second'
+            placeholder='Password'
             onChange={onChange}
             required
             minLength='6'
           />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password2'>Confirm Password</label>
           <input
             type='password'
             name='password2'
             value={password2}
+            className='fadeIn second'
+            placeholder='Confirm Password'
             onChange={onChange}
             required
             minLength='6'
           />
+          <input type='submit' value='Register' className='fadeIn third' />
+        </form>
+        <div id='formFooter'>
+          <Link className='underlineHover' to='/login'>
+            Login
+          </Link>
         </div>
-        <input
-          type='submit'
-          value='Register'
-          className='btn btn-primary btn-block'
-        />
-      </form>
+      </div>
     </div>
   );
 };

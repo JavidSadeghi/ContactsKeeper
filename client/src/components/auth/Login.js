@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
@@ -36,46 +37,54 @@ const Login = (props) => {
     e.preventDefault();
     if (email === '' || password === '') {
       setAlert('Please fill in all fields', 'danger');
-    }else {
+    } else {
       login({
         email,
-        password
+        password,
       });
     }
   };
 
   return (
-    <div className='form-container'>
-      <h1>
-        Account <span className='text-primary'>Login</span>
-      </h1>
-      <form onSubmit={onSubmit}>
-        <div className='form-group'>
-          <label htmlFor='email'>Email Address</label>
+    <div className='wrapper fadeInDown'>
+      <div id='formContent'>
+          <h1 className='fadeIn first'>
+            Account <span className='text-primary'>Login</span>
+          </h1>
+        <form onSubmit={onSubmit}>
           <input
             type='email'
             name='email'
+            id='login'
+            className='fadeIn second'
+            placeholder='Email Address'
             value={email}
             onChange={onChange}
             required
           />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
           <input
             type='password'
             name='password'
+            id='password'
+            className='fadeIn third'
+            placeholder='Password'
             value={password}
             onChange={onChange}
             required
           />
+          <input
+            type='submit'
+            value='Login'
+            className='fadeIn fourth'
+          />
+        </form>
+
+        <div id='formFooter'>
+          <Link className='underlineHover' to='/register'>
+            Register
+          </Link>
         </div>
-        <input
-          type='submit'
-          value='Login'
-          className='btn btn-primary btn-block'
-        />
-      </form>
+      </div>
     </div>
   );
 };
